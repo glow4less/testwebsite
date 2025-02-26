@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Developer Portfolio</title>
+    <style>
+        :root {
+            --primary: #0070f3;
+            --secondary: #6c757d;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --success: #28a745;
+            --border: #dee2e6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--primary), #6d5dfc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--secondary);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background-color: #005bb5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* About Section */
+        section {
+            padding: 100px 0;
+        }
+        
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+        }
+        
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .about-content {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .profile-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .profile-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .skill-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .skill-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .skill-card p {
+            color: var(--secondary);
+        }
+        
+        /* Projects Section */
+        .projects-filter {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-dropdown {
+            padding: 12px 20px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            background-color: white;
+            min-width: 200px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .filter-dropdown:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.2);
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .project-image {
+            height: 200px;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+        }
+        
+        .project-content {
+            padding: 20px;
+        }
+        
+        .project-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        
+        .tag {
+            background-color: #e9f5ff;
+            color: var(--primary);
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .project-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .project-link:hover {
+            color: #005bb5;
+        }
+        
+        /* No results message */
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .no-results h3 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .contact-item i {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .contact-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .submit-button {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-button:hover {
+            background-color: #005bb5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        /* Search input */
+        .search-container {
+            position: relative;
+            max-width: 300px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.2);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">YourName.AI</div>
+                <div class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>AI Developer & Machine Learning Engineer</h1>
+                <p>Building intelligent solutions for real-world problems with cutting-edge AI technology</p>
+                <a href="#contact" class="cta-button">Get in touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Hello! I'm [Your Name], an AI developer and machine learning engineer with a passion for creating intelligent systems that solve complex problems. With over [X] years of experience in the field, I specialize in developing AI solutions across various domains including computer vision, natural language processing, and reinforcement learning.</p>
+                    <p>My journey in AI began during my studies in [Your Degree] at [Your University], where I developed a strong foundation in machine learning algorithms, data science, and software engineering. Since then, I've worked on numerous projects ranging from recommendation systems to autonomous agents.</p>
+                    <p>I'm constantly exploring new advancements in AI research and applying them to create innovative solutions. When I'm not coding or training models, you can find me [Your Hobbies or Interests].</p>
+                </div>
+                <div class="profile-image">
+                    <img src="/api/placeholder/400/400" alt="Profile Picture">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" style="background-color: #f0f4f8;">
+        <div class="container">
+            <h2>My Skills</h2>
+            <div class="skills-container">
+                <div class="skill-card">
+                    <h3>Machine Learning</h3>
+                    <p>Expertise in supervised and unsupervised learning, regression, classification, clustering, and ensemble methods.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Deep Learning</h3>
+                    <p>Proficient in neural networks, CNNs, RNNs, transformers, and GANs using TensorFlow and PyTorch.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Natural Language Processing</h3>
+                    <p>Experience with text classification, sentiment analysis, named entity recognition, and language generation.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Computer Vision</h3>
+                    <p>Object detection, image segmentation, face recognition, and video analysis using state-of-the-art models.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Reinforcement Learning</h3>
+                    <p>Implementation of Q-learning, policy gradients, and deep reinforcement learning for complex decision-making tasks.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Model Deployment</h3>
+                    <p>Containerization and deployment of ML models using Docker, Kubernetes, AWS, and Azure ML.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Data Engineering</h3>
+                    <p>Experience with data pipelines, ETL processes, and big data technologies like Spark and Hadoop.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Programming Languages</h3>
+                    <p>Proficient in Python, SQL, and JavaScript with experience in R, Java, and C++.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2>Featured Projects</h2>
+            
+            <!-- Filter & Search controls -->
+            <div class="projects-filter">
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="projectSearch" class="search-input" placeholder="Search projects...">
+                </div>
+                
+                <select id="skillFilter" class="filter-dropdown">
+                    <option value="">All Skills</option>
+                    <option value="NLP">Natural Language Processing</option>
+                    <option value="Computer Vision">Computer Vision</option>
+                    <option value="Time Series">Time Series</option>
+                    <option value="Recommendation">Recommendation Systems</option>
+                    <option value="Deep Learning">Deep Learning</option>
+                    <option value="ML Deployment">ML Deployment</option>
+                    <option value="Edge AI">Edge AI</option>
+                </select>
+            </div>
+            
+            <div id="projectsGrid" class="projects-grid">
+                <div class="project-card" data-skills="NLP BERT Flask React">
+                    <div class="project-image">
+                        <img src="/api/placeholder/400/200" alt="Project 1">
+                    </div>
+                    <div class="project-content">
+                        <h3>Intelligent Customer Support System</h3>
+                        <p>A natural language processing system that automatically classifies and responds to customer inquiries, reducing response time by 70%.</p>
+                        <div class="project-tags">
+                            <span class="tag">NLP</span>
+                            <span class="tag">BERT</span>
+                            <span class="tag">Flask</span>
+                            <span class="tag">React</span>
+                        </div>
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-skills="Computer Vision YOLOv5 PyTorch OpenCV">
+                    <div class="project-image">
+                        <img src="/api/placeholder/400/200" alt="Project 2">
+                    </div>
+                    <div class="project-content">
+                        <h3>Computer Vision for Retail Analytics</h3>
+                        <p>An object detection and tracking system that analyzes customer movement patterns in retail spaces for optimized store layouts.</p>
+                        <div class="project-tags">
+                            <span class="tag">Computer Vision</span>
+                            <span class="tag">YOLOv5</span>
+                            <span class="tag">PyTorch</span>
+                            <span class="tag">OpenCV</span>
+                        </div>
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-skills="Time Series Anomaly Detection XGBoost IoT ML Deployment">
+                    <div class="project-image">
+                        <img src="/api/placeholder/400/200" alt="Project 3">
+                    </div>
+                    <div class="project-content">
+                        <h3>Predictive Maintenance AI</h3>
+                        <p>A machine learning system that predicts equipment failures before they occur, using sensor data and maintenance logs.</p>
+                        <div class="project-tags">
+                            <span class="tag">Time Series</span>
+                            <span class="tag">Anomaly Detection</span>
+                            <span class="tag">XGBoost</span>
+                            <span class="tag">IoT</span>
+                        </div>
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-skills="Recommendation Deep Learning Neural Networks TensorFlow Django">
+                    <div class="project-image">
+                        <img src="/api/placeholder/400/200" alt="Project 4">
+                    </div>
+                    <div class="project-content">
+                        <h3>Recommendation Engine</h3>
+                        <p>A personalized recommendation system for an e-commerce platform that improved click-through rates by 35% and conversion by 22%.</p>
+                        <div class="project-tags">
+                            <span class="tag">Collaborative Filtering</span>
+                            <span class="tag">Neural Networks</span>
+                            <span class="tag">TensorFlow</span>
+                            <span class="tag">Django</span>
+                        </div>
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-skills="Time Series LSTM NLP Sentiment Analysis Feature Engineering Deep Learning">
+                    <div class="project-image">
+                        <img src="/api/placeholder/400/200" alt="Project 5">
+                    </div>
+                    <div class="project-content">
+                        <h3>Financial Forecasting Model</h3>
+                        <p>A deep learning model that predicts market trends and stock movements using a combination of technical indicators and sentiment analysis.</p>
+                        <div class="project-tags">
+                            <span class="tag">LSTM</span>
+                            <span class="tag">Sentiment Analysis</span>
+                            <span class="tag">Time Series</span>
+                            <span class="tag">Feature Engineering</span>
+                        </div>
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-skills="Computer Vision Transfer Learning Edge AI ML Deployment IoT">
+                    <div class="project-image">
+                        <img src="/api/placeholder/400/200" alt="Project 6">
+                    </div>
+                    <div class="project-content">
+                        <h3>Smart Agriculture System</h3>
+                        <p>An AI-driven system that helps farmers optimize irrigation, fertilization, and pest control through multi-modal data analysis.</p>
+                        <div class="project-tags">
+                            <span class="tag">Computer Vision</span>
+                            <span class="tag">Sensor Fusion</span>
+                            <span class="tag">Transfer Learning</span>
+                            <span class="tag">Edge AI</span>
+                        </div>
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" style="background-color: #f0f4f8;">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i>📧</i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>your.email@example.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i>📱</i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+1 (123) 456-7890</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i>📍</i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>San Francisco, CA</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i>💼</i>
+                        <div>
+                            <h4>Availability</h4>
+                            <p>Open to freelance and full-time opportunities</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-button">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 YourName.AI - All Rights Reserved</p>
+                <div class="social-links">
+                    <a href="#" title="GitHub">GH</a>
+                    <a href="#" title="LinkedIn">LI</a>
+                    <a href="#" title="Twitter">TW</a>
+                    <a href="#" title="Medium">ME</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple form submission event
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you! Your message has been sent.');
+            this.reset();
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Project filtering functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const projectsGrid = document.getElementById('projectsGrid');
+            const projectCards = document.querySelectorAll('.project-card');
+            const searchInput = document.getElementById('projectSearch');
+            const skillFilter = document.getElementById('skillFilter');
+            
+            // Function to filter projects
+            function filterProjects() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const selectedSkill = skillFilter.value;
+                let visibleProjects = 0;
+                
+                // Remove existing no results message if it exists
+                const existingNoResults = document.querySelector('.no-results');
+                if (existingNoResults) {
+                    projectsGrid.removeChild(existingNoResults);
+                }
+                
+                projectCards.forEach(card => {
+                    const skills = card.getAttribute('data-skills').toLowerCase();
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const description = card.querySelector('p').textContent.toLowerCase();
+                    const content = title + ' ' + description + ' ' + skills;
+                    
+                    // Check if card matches both search term and skill filter
+                    const matchesSearch = searchTerm === '' || content.includes(searchTerm);
+                    const matchesSkill = selectedSkill === '' || skills.includes(selectedSkill.toLowerCase());
+                    
+                    if (matchesSearch && matchesSkill) {
+                        card.style.display = 'block';
+                        visibleProjects++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Show no results message if no matching projects
+                if (visibleProjects === 0) {
+                    const noResults = document.createElement('div');
+                    noResults.className = 'no-results';
+                    noResults.innerHTML = `
+                        <h3>No projects found</h3>
+                        <p>Try adjusting your search or filter criteria</p>
+                    `;
+                    projectsGrid.appendChild(noResults);
+                }
+            }
+            
+            // Event listeners for search and filter
+            searchInput.addEventListener('input', filterProjects);
+            skillFilter.addEventListener('change', filterProjects);
+        });
+    </script>
+</body>
+</html>
